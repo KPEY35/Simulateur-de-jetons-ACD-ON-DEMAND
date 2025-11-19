@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulateur ACD ON DEMAND - ACD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header img { height: 60px; }
+    .container {
+      display: flex;
+      padding: 1rem;
+      background: white;
+      margin: 1rem;
+      border-radius: 5px;
+      align-items: flex-start;
+    }
+    .simulateur {
+      flex: 0 0 450px;
+      padding: 1rem;
+      background: white;
+      border-radius: 5px;
+      position: sticky;
+      top: 10px;
+    }
+    .simulateur label { display: block; margin-top: 1rem; }
+    .simulateur input { width: 100%; padding: 0.5rem; margin-top: 0.2rem; }
+    .simulateur button { margin-top: 1rem; padding: 0.5rem 1rem; background-color: #003366; color: white; border: none; cursor: pointer; }
+    .simulateur .btn-reset { background-color: #999; margin-left: 10px; }
+    .tableau-droite {
+      flex: 0 0 700px;
+      padding: 1rem;
+      margin-left: 180px;
+    }
+    .tableau-droite h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: center; }
+    th, td { padding: 0.5rem; border: 1px solid #ccc; }
+    input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .cout-jeton {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #003366;
+      background: #e0f0ff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .nav {
+      text-align:center;
+      margin-top: 1rem;
+    }
+    .nav a {
+      color: #003366;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://www.acd-groupe.fr/wp-content/uploads/2022/06/Logo-ACD-footer.svg" />
+<h1 style="text-align:center; margin:30px auto; font-size:1.8rem;">Développer votre chiffre d'affaires avec les outils collaboratifs ACD</h1>
+</header>
+
+<div class="container">
+  <div class="simulateur">
+    <h2>Simulateur ACD ON DEMAND</h2>
+
+    <div class="cout-jeton">Coût du jeton : 1,25 €</div>
+
+    <label for="jetonsSaisie">1. Nombre de jetons acquis :</label>
+    <input type="number" id="jetonsSaisie">
+
+    <label for="jetons">2. Cumul total :</label>
+    <input type="number" id="jetons" readonly>
+
+    <label for="prixRev">3. Prix de revente du jeton :</label>
+    <input type="number" id="prixRev" min="0">
+
+    <button id="calculer">Calculer</button>
+    <button class="btn-reset" onclick="resetSimulateur()">Réinitialiser</button>
+
+    <div class="result" id="resultat"></div>
+  </div>
+
+  <div class="tableau-droite">
+    <h2>Services i-Suite Expert</h2>
+    <table>
+      <thead>
+	  <tr><th><a href="https://www.acd-groupe.fr/wp-content/uploads/2024/10/Pack-sc-ACD_sept2024.pdf" target="_blank">Services</a></th>
+        <th>Jetons</th><th>Dossiers</th></tr>
+      </thead>
+      <tbody>
+          <tr><td>i-Dépôt</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0"></td></tr>
+          <tr><td>i-Acquisition</td><td>1</td><td><input type="number" class="dossier-input" data-jetons="1"></td></tr>
+          <tr><td>i-Ged Expert</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2"></td></tr>
+          <tr><td>i-Comptes</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2"></td></tr>
+          <tr><td>i-Facture <20 factures></td><td>1</td><td><input type="number" class="dossier-input" data-jetons="1"></td></tr>
+          <tr><td>i-Facture <40 factures></td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2"></td></tr>
+          <tr><td>i-Facture <100 factures></td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4"></td></tr>
+          <tr><td>i-Facture <200 factures></td><td>9</td><td><input type="number" class="dossier-input" data-jetons="9"></td></tr>
+          <tr><td>i-Facture <300 factures></td><td>13</td><td><input type="number" class="dossier-input" data-jetons="13"></td></tr>
+          <tr><td>i-Facture <400 factures></td><td>17</td><td><input type="number" class="dossier-input" data-jetons="17"></td></tr>
+          <tr><td>i-Facture <500 factures></td><td>25</td><td><input type="number" class="dossier-input" data-jetons="25"></td></tr>
+          <tr><td>i-Facture <800 factures></td><td>40</td><td><input type="number" class="dossier-input" data-jetons="40"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Mini</td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Classic</td><td>10</td><td><input type="number" class="dossier-input" data-jetons="10"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Classic +</td><td>14</td><td><input type="number" class="dossier-input" data-jetons="14"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Evolution</td><td>20</td><td><input type="number" class="dossier-input" data-jetons="20"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Evolution +</td><td>24</td><td><input type="number" class="dossier-input" data-jetons="24"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Performance</td><td>39</td><td><input type="number" class="dossier-input" data-jetons="39"></td></tr>
+          <tr><td>Comptabilité Entreprise Web Performance +</td><td>69</td><td><input type="number" class="dossier-input" data-jetons="69"></td></tr>
+          <tr><td>i-Banque</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0"></td></tr>
+          <tr><td>Immo Entreprise Web</td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7"></td></tr>
+          <tr><td>ACD Banque Web</td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7"></td></tr>
+          <tr><td>i-Paie → 9 salariés</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2"></td></tr>
+          <tr><td>i-Paie → 49 salariés</td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4"></td></tr>
+          <tr><td>i-Paie+ 49 salariés</td><td>8</td><td><input type="number" class="dossier-input" data-jetons="8"></td></tr>
+          <tr><td>i-Salarié</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const tranchesAOD = [
+    { min: 0, coefficient: 1.25 }, { min: 251, coefficient: 1.20 }, { min: 401, coefficient: 1.15 },
+    { min: 601, coefficient: 1.10 }, { min: 901, coefficient: 1.05 }, { min: 1501, coefficient: 1.00 },
+    { min: 2251, coefficient: 0.95 }, { min: 3376, coefficient: 0.90 }, { min: 5001, coefficient: 0.85 },
+    { min: 7501, coefficient: 0.80 }, { min: 10001, coefficient: 0.75 }, { min: 25001, coefficient: 0.48 },
+    { min: 50001, coefficient: 0.46 }, { min: 90001, coefficient: 0.44 }, { min: 150001, coefficient: 0.42 },
+    { min: 300001, coefficient: 0.40 }
+  ];
+
+
+  const e = id => document.getElementById(id);
+
+  function getCoefficient(jetons, grille) {
+    for (let i = grille.length - 1; i >= 0; i--) {
+      if (jetons >= grille[i].min) return grille[i].coefficient;
+    }
+    return grille[0].coefficient;
+  }
+
+  function updateJetons() {
+    let total = parseInt(e("jetonsSaisie").value) || 0;
+    document.querySelectorAll('.dossier-input').forEach(inp => {
+      total += (parseInt(inp.dataset.jetons) || 0) * (parseInt(inp.value) || 0);
+    });
+    e("jetons").value = total;
+  }
+
+  function resetSimulateur() {
+    document.querySelectorAll('input[type="number"]').forEach(i => i.value = "");
+    document.querySelectorAll('.result').forEach(r => r.innerHTML = "");
+  }
+
+  e("jetonsSaisie").addEventListener("input", updateJetons);
+  document.querySelectorAll(".dossier-input").forEach(i => i.addEventListener("input", updateJetons));
+
+  e("calculer").addEventListener("click", () => {
+    const jetons = parseInt(e("jetons").value) || 0;
+    const prixRev = parseFloat(e("prixRev").value) || 0;
+    const coeff = getCoefficient(jetons, tranches);
+    const coutTotal = jetons * coeff;
+    const revenu = jetons * prixRev;
+    const margeMensuelle = revenu - coutTotal;
+    const margeAnnuelle = margeMensuelle * 12;
+
+    e("resultat").innerHTML = `
+      <p><strong>Coût unitaire :</strong> ${coeff.toFixed(2)} €</p>
+      <p><strong>Coût total :</strong> ${coutTotal.toFixed(2)} €</p>
+      <p><strong>Revenu estimé :</strong> ${revenu.toFixed(2)} €</p>
+      <p><strong>Marge mensuelle :</strong> ${margeMensuelle.toFixed(2)} €</p>
+      <p><strong>Marge annuelle :</strong> ${margeAnnuelle.toFixed(2)} €</p>
+    `;
+  });
+</script>
+
+</body>
+</html>
