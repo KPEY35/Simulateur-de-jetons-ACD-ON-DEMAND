@@ -179,7 +179,7 @@
   e("calculer").addEventListener("click", () => {
     const jetons = parseInt(e("jetons").value) || 0;
     const prixRev = parseFloat(e("prixRev").value) || 0;
-    const coeff = getCoefficient(jetons, tranches);
+    const coeff = getCoefficient(jetons, tranchesAOD);
     const coutTotal = jetons * coeff;
     const revenu = jetons * prixRev;
     const margeMensuelle = revenu - coutTotal;
