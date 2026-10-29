@@ -109,6 +109,16 @@
       .container { grid-template-columns: 1fr; }
       .simulateur { position: static; }
     }
+
+    /* ---------- Catégories et info-bulles ---------- */
+    tr.categorie td { background: var(--navy); color: #fff; font-weight: 600; text-align: left; padding: 0.6rem 0.8rem; border-bottom: none; letter-spacing: 0.01em; }
+    tbody tr.categorie:hover td { background: var(--navy); }
+    tr.categorie .num { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-right: 0.6rem; border-radius: 50%; background: var(--grad); color: #fff; font-size: 0.8rem; }
+    .info { display: inline-flex; align-items: center; justify-content: center; width: 1.15rem; height: 1.15rem; margin-left: 0.4rem; border-radius: 50%; border: 1.5px solid var(--violet); color: var(--violet); font-size: 0.7rem; font-weight: 700; font-style: italic; cursor: help; vertical-align: middle; background: #fff; }
+    .info:hover, .info:focus-visible { background: var(--violet); color: #fff; outline: none; }
+    .bulle { position: fixed; z-index: 50; display: none; max-width: 280px; padding: 0.6rem 0.8rem; background: var(--navy); color: #fff; font-size: 0.82rem; font-weight: 500; line-height: 1.4; border-radius: 10px; box-shadow: 0 8px 24px rgba(1,8,84,.3); pointer-events: none; }
+
+    td.inclus { color: #0a8fd8 !important; font-weight: 700 !important; }
   </style>
 </head>
 <body>
@@ -145,22 +155,20 @@
   </section>
 
   <section class="card tableau-droite">
-    <h2>Services i-Suite Expert</h2>
+    <h2>Portail collaboratif client incluant</h2>
     <div class="table-wrap">
     <table>
       <thead>
-      <tr><th><a href="https://www.acd-groupe.fr/wp-content/uploads/2024/10/Pack-sc-ACD_sept2024.pdf" target="_blank">Services</a></th>
+      <tr><th><a href="https://www.acd-groupe.fr/wp-content/uploads/2024/10/Pack-sc-ACD_sept2024.pdf" target="_blank">Détails des offres de services</a></th>
 	<th>Jetons</th><th>Dossiers</th></tr>
       </thead>
       <tbody>
-          <tr><td>i-Dépôt</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0" min="0"></td></tr>
-          <tr><td>i-Acquisition</td><td>1</td><td><input type="number" class="dossier-input" data-jetons="1" min="0"></td></tr>
-          <tr><td>i-Ged Expert</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2" min="0"></td></tr>
-          <tr><td>i-Comptes</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2" min="0"></td></tr>
-
-          <!-- GROUPE i-Facture -->
+          <tr><td>i-Dépôt <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Dépôt de tout type de pièce par votre client, via PC ou Smartphone">i</span></td><td class="inclus">Inclus</td><td>—</td></tr>
+          <tr><td>i-Banque <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Demande d’information complémentaire sur les lignes du relevé bancaire">i</span></td><td class="inclus">Inclus</td><td>—</td></tr>
+          <tr><td>i-Admin <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Gestion de la création de nouveaux utilisateurs et des droits d’accès aux modules">i</span></td><td class="inclus">Inclus</td><td>—</td></tr>
+          <tr class="categorie"><td colspan="3"><span class="num">1</span>Facturation électronique</td></tr>
           <tr class="groupe-titre" data-groupe="facture" aria-expanded="false" tabindex="0">
-            <td><span class="fleche">▶</span>i-Facture</td><td>—</td>
+            <td><span class="fleche">▶</span>i-Facture <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Réception des factures fournisseurs">i</span></td><td>—</td>
             <td><span class="total-groupe" id="total-facture">0 dossier</span></td>
           </tr>
           <tr class="sous-ligne" data-groupe="facture"><td>i-Facture &lt; 20 factures</td><td>1</td><td><input type="number" class="dossier-input" data-jetons="1" data-groupe="facture" min="0"></td></tr>
@@ -171,15 +179,14 @@
           <tr class="sous-ligne" data-groupe="facture"><td>i-Facture &lt; 400 factures</td><td>17</td><td><input type="number" class="dossier-input" data-jetons="17" data-groupe="facture" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="facture"><td>i-Facture &lt; 500 factures</td><td>25</td><td><input type="number" class="dossier-input" data-jetons="25" data-groupe="facture" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="facture"><td>i-Facture &lt; 800 factures</td><td>40</td><td><input type="number" class="dossier-input" data-jetons="40" data-groupe="facture" min="0"></td></tr>
-
-          <!-- NOUVEAUX SERVICES COLLABORATIFS -->
-          <tr><td>TS Vente</td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4" min="0"></td></tr>
-          <tr><td>TS Premium</td><td>15</td><td><input type="number" class="dossier-input" data-jetons="15" min="0"></td></tr>
-          <tr><td>Waibi Essentiel</td><td>5</td><td><input type="number" class="dossier-input" data-jetons="5" min="0"></td></tr>
-
-          <!-- GROUPE i-Comptabilité -->
+          <tr><td>TS Vente <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Devis / facturation">i</span></td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4" min="0"></td></tr>
+          <tr><td>TS Premium <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Centralise achats, ventes, banque, caisse, NDF">i</span></td><td>15</td><td><input type="number" class="dossier-input" data-jetons="15" min="0"></td></tr>
+          <tr class="categorie"><td colspan="3"><span class="num">2</span>Restitution client</td></tr>
+          <tr><td>i-Ged Expert <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Restitution documentaire en lien avec la GED cabinet">i</span></td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2" min="0"></td></tr>
+          <tr><td>Waibi Essentiel <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Waibi Essentiel : dashboard dynamique avec les principaux indicateurs de gestion nécessaires au client pour suivre et piloter son activité">i</span></td><td>5</td><td><input type="number" class="dossier-input" data-jetons="5" min="0"></td></tr>
+          <tr class="categorie"><td colspan="3"><span class="num">3</span>Partager la comptabilité</td></tr>
           <tr class="groupe-titre" data-groupe="compta" aria-expanded="false" tabindex="0">
-            <td><span class="fleche">▶</span>i-Comptabilité</td><td>—</td>
+            <td><span class="fleche">▶</span>i-Comptabilité <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Partage collaboratif de la comptabilité en ligne">i</span></td><td>—</td>
             <td><span class="total-groupe" id="total-compta">0 dossier</span></td>
           </tr>
           <tr class="sous-ligne" data-groupe="compta"><td>i-Comptabilité Mini</td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4" data-groupe="compta" min="0"></td></tr>
@@ -189,25 +196,23 @@
           <tr class="sous-ligne" data-groupe="compta"><td>i-Comptabilité Evolution +</td><td>24</td><td><input type="number" class="dossier-input" data-jetons="24" data-groupe="compta" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="compta"><td>i-Comptabilité Performance</td><td>39</td><td><input type="number" class="dossier-input" data-jetons="39" data-groupe="compta" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="compta"><td>i-Comptabilité Performance +</td><td>69</td><td><input type="number" class="dossier-input" data-jetons="69" data-groupe="compta" min="0"></td></tr>
-
-          <tr><td>i-Banque</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0" min="0"></td></tr>
-          <tr><td>Immo Entreprise Web</td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7" min="0"></td></tr>
-          <tr><td>ACD Banque Web</td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7" min="0"></td></tr>
-          <!-- GROUPE i-Paie -->
+          <tr><td>Immo Entreprise Web <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Saisie et/ou consultation des immobilisations. Nécessite à minima une version i-Comptabilité Classic.">i</span></td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7" min="0"></td></tr>
+          <tr><td>ACD Banque Web <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Pour intégrer et imputer les relevés bancaires provenant de la banque du client ou de Jedéclare.com">i</span></td><td>7</td><td><input type="number" class="dossier-input" data-jetons="7" min="0"></td></tr>
+          <tr class="categorie"><td colspan="3"><span class="num">4</span>Partager la paie</td></tr>
           <tr class="groupe-titre" data-groupe="paie" aria-expanded="false" tabindex="0">
-            <td><span class="fleche">▶</span>i-Paie</td><td>—</td>
+            <td><span class="fleche">▶</span>i-Paie <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Pour la saisie et la validation des variables de paie">i</span></td><td>—</td>
             <td><span class="total-groupe" id="total-paie">0 dossier</span></td>
           </tr>
           <tr class="sous-ligne" data-groupe="paie"><td>i-Paie → 9 salariés</td><td>2</td><td><input type="number" class="dossier-input" data-jetons="2" data-groupe="paie" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="paie"><td>i-Paie → 49 salariés</td><td>4</td><td><input type="number" class="dossier-input" data-jetons="4" data-groupe="paie" min="0"></td></tr>
           <tr class="sous-ligne" data-groupe="paie"><td>i-Paie+ 49 salariés</td><td>8</td><td><input type="number" class="dossier-input" data-jetons="8" data-groupe="paie" min="0"></td></tr>
-          <tr><td>i-Salarié</td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0" min="0"></td></tr>
-
+          <tr><td>i-Salarié <span class="info" tabindex="0" role="button" aria-label="Information" data-tip="Permet de récupérer les bulletins de paie produits par Paie Expert, les demandes de congés…">i</span></td><td>0</td><td><input type="number" class="dossier-input" data-jetons="0" min="0"></td></tr>
       </tbody>
     </table>
     </div>
   </section>
 </main>
+
 
 <footer class="footer"><img src="data:image/png;base64,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" alt="TeamSystem | ACD"></footer>
 
@@ -288,6 +293,28 @@
       <div class="kpi marge${neg(margeAnnuelle)}" style="grid-column: 1 / -1"><span>Marge annuelle</span><strong>${eur(margeAnnuelle)}</strong></div>
     `;
   });
+
+  // ---------- Info-bulles ----------
+  const bulle = document.createElement("div");
+  bulle.className = "bulle"; document.body.appendChild(bulle);
+  function montrerBulle(el) {
+    bulle.textContent = el.dataset.tip; bulle.style.display = "block";
+    const r = el.getBoundingClientRect(), w = bulle.offsetWidth, h = bulle.offsetHeight;
+    bulle.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), window.innerWidth - w - 8) + "px";
+    let top = r.bottom + 8; if (top + h > window.innerHeight - 8) top = r.top - h - 8;
+    bulle.style.top = top + "px";
+  }
+  const cacherBulle = () => { bulle.style.display = "none"; };
+  document.querySelectorAll(".info").forEach(el => {
+    el.addEventListener("mouseenter", () => montrerBulle(el));
+    el.addEventListener("mouseleave", cacherBulle);
+    el.addEventListener("focus", () => montrerBulle(el));
+    el.addEventListener("blur", cacherBulle);
+    el.addEventListener("click", ev => { ev.stopPropagation(); montrerBulle(el); });
+    el.addEventListener("keydown", ev => ev.stopPropagation());
+  });
+  document.addEventListener("click", cacherBulle);
+  window.addEventListener("scroll", cacherBulle, true);
 </script>
 
 </body>
